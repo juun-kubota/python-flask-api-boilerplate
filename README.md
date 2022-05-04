@@ -77,25 +77,53 @@ $ pyenv versions
 * 3.10.2 (set by /Users/XXXXXX/Project_dir/.python-version)
 ```
 
+### Python仮想環境構築とインタープリタの設定
+
+プロジェクトディレクトリ配下にPythonファイル（.py）を作成する。  
+（ここでは「cli.py」を作成）  
+<br>
+プロジェクトディレクトリ配下でpython仮想環境を作成する。  
+Macターミナルより以下を実行
+
+```
+$ cd ~/Project_dir
+$ python -m venv .venv
+```
+
+Vscodeより、cli.pyを開くと画面下部のステータスバーにpythonのバージョンが表示されているので、クリックを行う。  
+インタープリタを先ほど作成した仮想環境（.venv）に切り替える。  
+今後はターミナルでの操作をVscodeのターミナルから起動、実行する。  
+Vscodeの上部メニュー「ターミナル」 > 「新しいターミナル」を選択すると(.venv)の表示がされていればOK。
+
+```
+(.venv) プロジェクト名 % 
+```
+
 ### Pythonモジュール
 
 プロジェクトディレクトリ配下でpipよりVscodeで設定するPythonモジュールをインストールする。
+仮想環境上でインストールする。
 
 ```
-$ pip list
+$(.venv) pip install --upgrade pip
+$(.venv) pip list
 Package    Version
 ---------- -------
 pip        22.0.4
 setuptools 58.1.0
 
-$ pip install black flake8 isort mypy
-$ pip list
+$(.venv) pip install black flake8 isort mypy flask
+$(.venv) pip list
 Package           Version
 ----------------- -------
 black             22.3.0
 click             8.1.3
 flake8            4.0.1
+Flask             2.1.2
 isort             5.10.1
+itsdangerous      2.1.2
+Jinja2            3.1.2
+MarkupSafe        2.1.1
 mccabe            0.6.1
 mypy              0.950
 mypy-extensions   0.4.3
@@ -107,6 +135,7 @@ pyflakes          2.4.0
 setuptools        58.1.0
 tomli             2.0.1
 typing_extensions 4.2.0
+Werkzeug          2.1.2
 ```
 
 
@@ -161,24 +190,3 @@ setting.jsonに追加する。
 "python.linting.mypyEnabled": true
 ```
 
-#### ⑤ Python仮想環境構築とインタープリタの設定
-
-プロジェクトディレクトリ配下にPythonファイル（.py）を作成する。  
-（ここでは「cli.py」を作成）  
-<br>
-プロジェクトディレクトリ配下でpython仮想環境を作成する。  
-Macターミナルより以下を実行
-
-```
-$ cd ~/Project_dir
-$ python -m venv .venv
-```
-
-Vscodeより、cli.pyを開くと画面下部のステータスバーにpythonのバージョンが表示されているので、クリックを行う。  
-インタープリタを先ほど作成した仮想環境（.venv）に切り替える。  
-今後はターミナルでの操作をVscodeのターミナルから起動、実行する。  
-Vscodeの上部メニュー「ターミナル」 > 「新しいターミナル」を選択すると(.venv)の表示がされていればOK。
-
-```
-(.venv) プロジェクト名 % 
-```

@@ -1,6 +1,10 @@
+.env
+
 # Vscode
 *.code-workspace
+.vscode
 
 # Python
 .python-version
 .venv
+__pycache__

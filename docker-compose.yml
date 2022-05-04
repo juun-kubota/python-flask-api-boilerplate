@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  flask:
+    container_name: docker-dev-server
+    build:
+      dockerfile: docker/flask/Dockerfile
+      context: .
+      args:
+        APP_SRC: ${APP_SRC}
+        APP_DIR: ${APP_DIR}
+        REQUIREMENTS_SRC: ${REQUIREMENTS_SRC}
+        REQUIREMENTS_DIR: ${REQUIREMENTS_DIR}
+        REQUIREMENTS_FILE: docker_flask.txt
+    ports:
+      - "5000:5000"
+    environment:
+      TZ: ${TZ}
+      FLASK_APP: api.py
+      FLASK_ENV: development
+    tty: true
+    volumes:
+      - ${APP_SRC}:${APP_DIR}
+      - ${REQUIREMENTS_SRC}:${REQUIREMENTS_DIR}
+    command: flask run --host 0.0.0.0 --port 5000 --debugger --reload
