@@ -8,3 +8,6 @@
 .python-version
 .venv
 __pycache__
+
+# Docker
+docker/mysql/logs

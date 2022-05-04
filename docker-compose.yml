@@ -23,3 +23,31 @@ services:
       - ${APP_SRC}:${APP_DIR}
       - ${REQUIREMENTS_SRC}:${REQUIREMENTS_DIR}
     command: flask run --host 0.0.0.0 --port 5000 --debugger --reload
+
+  mysql:
+    container_name: docker-db-server
+    platform: linux/x86_64
+    build:
+      dockerfile: docker/mysql/Dockerfile
+      context: .
+      args:
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - db-store:/var/lib/mysql
+      - ./docker/mysql/logs:/var/log/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      TZ: ${TZ}
+
+volumes:
+  db-store:
